@@ -15,6 +15,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 ## AJOUT PERSONNEL
 gem 'boring_generators'
+gem "devise", "~> 4.8"
+gem "omniauth-github", "~> 2.0"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -26,5 +28,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "devise", "~> 4.8"
