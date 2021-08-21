@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  root 'accueil#index'
+  devise_for :users
+  #, controllers: { :registrations => "users/registrations" }
+
+  root "accueil#index"
+
 end
