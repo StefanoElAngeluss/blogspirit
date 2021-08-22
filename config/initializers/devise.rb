@@ -271,12 +271,21 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  # config.omniauth :github, "91ae0b1d42e4f7dcc5d2", "a29469a286e572629b5a02e2923733832b18f476"
-  config.omniauth :github, Rails.application.credentials.dig(:github,:id), Rails.application.credentials.dig(:github, :secret), scope: 'user'
-  config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :id), Rails.application.credentials.dig(:google_oauth2, :secret)
+  Rails.application.config.action_controller.per_form_csrf_tokens = true
+
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :github,
+      ENV['91ae0b1d42e4f7dcc5d2'],
+      ENV['ec9a6a281bb427236d587ce31653dd9d22073e66'],
+      scope: "user,repo,gist"
+  end
+
+  config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
+  config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
+  # config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id], Rails.application.credentials[Rails.env.to_sym][:github][:secret], scope: 'user'
+  # config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :id), Rails.application.credentials.dig(:google_oauth2, :secret)
   config.omniauth :twitter, Rails.application.credentials.dig(:twitter, :id), Rails.application.credentials.dig(:twitter, :secret)
-  config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :id), Rails.application.credentials.dig(:facebook, :secret)
+  # config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :id), Rails.application.credentials.dig(:facebook, :secret)
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
