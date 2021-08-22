@@ -16,7 +16,11 @@ gem 'bootsnap', '>= 1.4.4', require: false
 ## AJOUT PERSONNEL
 gem 'boring_generators'
 gem "devise", "~> 4.8"
-gem "omniauth-github", "~> 2.0"
+gem "omniauth"
+gem "omniauth-github"
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
