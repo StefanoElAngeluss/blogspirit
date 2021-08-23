@@ -8,9 +8,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     handle_auth "Github"
   end
 
-  def twitter
-    handle_auth "Twitter"
-  end
+  # def twitter
+  #   handle_auth "Twitter"
+  # end
 
   def facebook
     handle_auth "Facebook"

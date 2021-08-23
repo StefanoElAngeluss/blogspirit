@@ -9,6 +9,9 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+
+	config.omniauth :google_oauth2, "APP_ID", "APP_SECRET"
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -275,16 +278,23 @@ Devise.setup do |config|
 
   Rails.application.config.middleware.use OmniAuth::Builder do
     provider :github,
-      ENV['91ae0b1d42e4f7dcc5d2'],
-      ENV['ec9a6a281bb427236d587ce31653dd9d22073e66'],
+      "91ae0b1d42e4f7dcc5d2",
+      "ec9a6a281bb427236d587ce31653dd9d22073e66",
       scope: "user,repo,gist"
+    provider :facebook,
+      "2906252596363888",
+      "16cd6994c8170df28f0c5407321b5da5",
+      token_params: { parse: :json }
+    provider :google_oauth2,
+      "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com",
+      "PHo_F83TupHWLt2IL28YWUjk"
   end
 
-  config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
-  config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
+  # config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
+  # config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
   # config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id], Rails.application.credentials[Rails.env.to_sym][:github][:secret], scope: 'user'
   # config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :id), Rails.application.credentials.dig(:google_oauth2, :secret)
-  config.omniauth :twitter, Rails.application.credentials.dig(:twitter, :id), Rails.application.credentials.dig(:twitter, :secret)
+  # config.omniauth :twitter, Rails.application.credentials.dig(:twitter, :id), Rails.application.credentials.dig(:twitter, :secret)
   # config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :id), Rails.application.credentials.dig(:facebook, :secret)
 
   # ==> Warden configuration
