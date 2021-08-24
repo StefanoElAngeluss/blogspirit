@@ -11,10 +11,12 @@
 </p>
 
 <p>
-  <strong>Image: </strong>
-  <% if @post.image.attached? %>
-    <%= image_tag @post.image.variant(resize_to_limit: [520, 350]) %>
-    <%#= image_tag @post.image, width: "200px" %>
+  <strong>Images: </strong>
+  <% if @post.images.attached? %>
+    <% @post.images.each do |image| %>
+        <%= image_tag image, width: "200px;" %>
+      <%#= image_tag @post.image, width: "200px" %>
+    <% end %>
   <% else %>
     Pas d'image
   <% end %>

@@ -18,20 +18,21 @@
 <% @posts.each do |post| %>
 <a href=" <%= post_path(post) %> "><%= post.title %></a>
     <br>
-    <div class="d-flex justify-content-start">
-      <%= render 'posts/upvote_link', post: post %>&nbsp;&nbsp;
-      <%= render 'posts/like_count', post: post %>&nbsp;&nbsp;
-      <%= render 'posts/downvote_link', post: post %>
+    <div class="container">
+      <div class="d-flex justify-content-start">
+        <%= render 'posts/upvote_link', post: post %>&nbsp;&nbsp;
+        <%= render 'posts/like_count', post: post %>&nbsp;&nbsp;
+        <%= render 'posts/downvote_link', post: post %>
+      </div>
     </div>
     <br>
-    <% if post.image.present? %>
-      <b>Image: </b><%= image_tag post.image.variant(resize_to_limit: [250, 100]) %>
-      <br>
-      <%= truncate(post.content, length: 50) %>
+    <% if post.images.attached? %>
+      <% post.images.each do |image| %>
+          <%= image_tag image, width: "200px;" %>
+        <%#= image_tag @post.image, width: "200px" %>
+      <% end %>
     <% else %>
-      <b>Image: </b> Pas d'image
-      <br>
-      <b>Contenu: </b><%= truncate(post.content, length: 50) %>
+      Pas d'image
     <% end %>
     <br>
     

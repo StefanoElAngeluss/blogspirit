@@ -18,8 +18,14 @@
   </div>
 
   <div class="field">
-    <%= form.label :image %>
+    <%= form.label "Image Simple:" %>
     <%= form.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Images Multiple:" %>
+    <%#= form.file_field :image %>
+    <%= form.file_field :images, multiple: true %>
   </div>
 
   <div class="field">
