@@ -1,19 +1,43 @@
+<h1>Posts: 
+  <span class="badge bg-secondary" style="font-size:24px; my-0 py-0">
+    <%= @posts.count %>
+  /
+    <%= Post.count %>
+  </span>
+</h1>
 
-<h1>Posts</h1>
 <p id="notice"><%= notice %></p>
+
+<%= link_to "Par défaut", posts_path, class: "badge text-white bg-danger", style: "text-decoration:none;" %>
+<%= link_to_unless_current "5", posts_path(items: 5), class: "badge text-white bg-primary", style: "text-decoration:none;" %>
+<%= link_to_unless_current "10", posts_path(items: 10), class: "badge text-white bg-primary", style: "text-decoration:none;" %>
+<br>
+<br>
+<%== pagy_bootstrap_nav(@pagy) %>
+
 <% @posts.each do |post| %>
 <a href=" <%= post_path(post) %> "><%= post.title %></a>
-  <% if current_user %>
     <br>
-    <%= render 'posts/upvote_link', post: post %>
-    <%= render 'posts/like_count', post: post %>
-    <%= render 'posts/downvote_link', post: post %>
+    <div class="d-flex justify-content-start">
+      <%= render 'posts/upvote_link', post: post %>&nbsp;&nbsp;
+      <%= render 'posts/like_count', post: post %>&nbsp;&nbsp;
+      <%= render 'posts/downvote_link', post: post %>
+    </div>
     <br>
-    <%= truncate(post.content, length: 40) %>
-  <% end %>
+    <% if post.image.present? %>
+      <b>Image: </b><%= image_tag post.image.variant(resize_to_limit: [250, 100]) %>
+      <br>
+      <%= truncate(post.content, length: 50) %>
+    <% else %>
+      <b>Image: </b> Pas d'image
+      <br>
+      <b>Contenu: </b><%= truncate(post.content, length: 50) %>
+    <% end %>
+    <br>
+    
   <hr>
 <% end %>
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
+<%= link_to "Créer un nouvel article", new_post_path, class: "btn btn-primary" %>

@@ -24,7 +24,8 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.order(cached_votes_score: :desc)
+    # @pagy, @posts = pagy(Post.all.order(created_at: :desc), items: 4)
+    @pagy, @posts = pagy(Post.order(created_at: :desc))
   end
 
   # GET /posts/1 or /posts/1.json
@@ -57,7 +58,6 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    current_user.user
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: "Post was successfully updated." }
@@ -86,6 +86,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :user_id)
+      params.require(:post).permit(:title, :content, :user_id, :image)
     end
 end

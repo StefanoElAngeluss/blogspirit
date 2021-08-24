@@ -11,8 +11,18 @@
 </p>
 
 <p>
+  <strong>Image: </strong>
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image.variant(resize_to_limit: [520, 350]) %>
+    <%#= image_tag @post.image, width: "200px" %>
+  <% else %>
+    Pas d'image
+  <% end %>
+</p>
+
+<p>
   <strong>User:</strong>
-  <%= @post.user_id %>
+  <%= @post.user_id = current_user.username.capitalize %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

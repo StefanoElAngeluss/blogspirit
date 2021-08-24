@@ -1,13 +1,12 @@
 class User < ApplicationRecord
-	devise :omniauthable, omniauth_providers: %i[google_oauth2]
-  has_many :posts
-
 	# Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
 				 :validatable, :omniauthable, omniauth_providers: [:github, :google_oauth2, :facebook]
   
   attr_accessor :login
+
+  has_many :posts
 
   def to_s
     email
