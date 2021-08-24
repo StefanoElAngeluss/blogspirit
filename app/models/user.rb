@@ -1,23 +1,11 @@
 class User < ApplicationRecord
 	devise :omniauthable, omniauth_providers: %i[google_oauth2]
-
-	def self.from_omniauth(auth)
-  	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-    	user.email = auth.info.email
-    	user.password = Devise.friendly_token[0, 20]
-    	# user.name = auth.info.name   # assuming the user model has a name
-    	# user.image = auth.info.image # assuming the user model has an image
-    	# If you are using confirmable and the provider(s) you use validate emails,
-    	# uncomment the line below to skip the confirmation emails.
-    	# user.skip_confirmation!
-  	end
-	end
-
+  has_many :posts
 
 	# Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-				 :validatable, :omniauthable, omniauth_providers: [:github, :google_auth, :facebook]
+				 :validatable, :omniauthable, omniauth_providers: [:github, :google_oauth2, :facebook]
   
   attr_accessor :login
 
@@ -25,17 +13,19 @@ class User < ApplicationRecord
     email
   end
 
-	# def self.from_omniauth(auth)
-  # 	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-  #   	user.email = auth.info.email
-  #   	user.password = Devise.friendly_token[0, 20]
-    	# user.name = auth.info.name   # assuming the user model has a name
+  acts_as_voter
+
+	def self.from_omniauth(auth)
+  	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    	user.email = auth.info.email
+    	user.password = Devise.friendly_token[0, 20]
+    	user.username = auth.info.name   # assuming the user model has a name
     	# user.image = auth.info.image # assuming the user model has an image
     	# If you are using confirmable and the provider(s) you use validate emails,
     	# uncomment the line below to skip the confirmation emails.
   #   	user.skip_confirmation!
-  # 	end
-	# end
+  	end
+	end
 
 	# Ceci est pour utiliser email ou username pour le login voir devise.rb dans initializers
   def self.find_first_by_auth_conditions(warden_conditions)
@@ -47,29 +37,4 @@ class User < ApplicationRecord
     end
   end
 
-	# Google Omniauth Oauth2
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    unless user
-        user = User.create(
-          name: data['username'],
-          email: data['email'],
-          password: Devise.friendly_token[0,20]
-        )
-    end
-    user.provider = access_token.provider
-    user.uid = access_token.uid
-    unless user.name.present?
-      user.name = access_token.info.name
-    end
-		unless user.image.present?
-    	user.image = access_token.info.image
-		end
-    user.save
-
-    user.confirmed_at = Time.now # Autoconfirm User form omniauth
-    user
-  end
-	
 end

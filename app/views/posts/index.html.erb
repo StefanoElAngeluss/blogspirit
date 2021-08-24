@@ -1,0 +1,19 @@
+
+<h1>Posts</h1>
+<p id="notice"><%= notice %></p>
+<% @posts.each do |post| %>
+<a href=" <%= post_path(post) %> "><%= post.title %></a>
+  <% if current_user %>
+    <br>
+    <%= render 'posts/upvote_link', post: post %>
+    <%= render 'posts/like_count', post: post %>
+    <%= render 'posts/downvote_link', post: post %>
+    <br>
+    <%= truncate(post.content, length: 40) %>
+  <% end %>
+  <hr>
+<% end %>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

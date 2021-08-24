@@ -276,19 +276,18 @@ Devise.setup do |config|
   # up on your models and hooks.
   Rails.application.config.action_controller.per_form_csrf_tokens = true
 
-  Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :github,
-      "91ae0b1d42e4f7dcc5d2",
-      "ec9a6a281bb427236d587ce31653dd9d22073e66",
-      scope: "user,repo,gist"
-    provider :facebook,
-      "2906252596363888",
-      "16cd6994c8170df28f0c5407321b5da5",
-      token_params: { parse: :json }
-    provider :google_oauth2,
-      "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com",
-      "PHo_F83TupHWLt2IL28YWUjk"
-  end
+  config.omniauth :facebook, "830325917682669", "f1f646edd2470a83989271de8cfe7e61", token_params: { parse: :json }
+  config.omniauth :github, "91ae0b1d42e4f7dcc5d2", "ec9a6a281bb427236d587ce31653dd9d22073e66", scope: "user,repo,gist"
+  config.omniauth :google_oauth2, "381163513208-khfmt9g1b2ltnrhd67l86313auk0p28t.apps.googleusercontent.com", "fFiHrhp_2q-dgzFxhFUTq-Q8"
+
+    # provider :github,
+    #   "91ae0b1d42e4f7dcc5d2",
+    #   "ec9a6a281bb427236d587ce31653dd9d22073e66",
+    #   scope: "user,repo,gist"
+      
+    # provider :google_oauth2,
+    #   "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com",
+    #   "PHo_F83TupHWLt2IL28YWUjk"
 
   # config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
   # config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
