@@ -17,7 +17,9 @@
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <% if user_signed_in? %>
+              <li><%= link_to current_user.username.capitalize, edit_user_registration_path, class: "dropdown-item #{ yield(:user) } text-info bg-dark" %></li>
+            <% end %>
             <%= link_to "Articles", posts_path(@post), class: "dropdown-item" %>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>

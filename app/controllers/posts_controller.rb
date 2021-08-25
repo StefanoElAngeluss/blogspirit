@@ -22,6 +22,13 @@ class PostsController < ApplicationController
     render "vote.js.erb"
   end
 
+  def purge_image
+    @post = Post.find(params[:id])
+    @post.image.purge
+    redirect_back fallback_location: root_path, notice: "Successfully"
+  end
+  
+
   # GET /posts or /posts.json
   def index
     # @pagy, @posts = pagy(Post.all.order(created_at: :desc), items: 4)
@@ -47,6 +54,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        PostMailer.with(user: current_user, post: @post).post_created.deliver_later
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else

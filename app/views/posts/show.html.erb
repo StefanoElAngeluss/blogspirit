@@ -11,11 +11,37 @@
 </p>
 
 <p>
-  <strong>Images: </strong>
+  <strong>Image de l'article: </strong><br>
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image, width: "200px" %><br><br>
+    <%= link_to "Supprimer l'image", purge_image_post_path(@post), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
+  <% else %>
+    Pas d'image
+  <% end %>
+</p>
+
+<p>
+  
   <% if @post.images.attached? %>
-    <% @post.images.each do |image| %>
-        <%= image_tag image, width: "200px;" %>
-      <%#= image_tag @post.image, width: "200px" %>
+    <strong>Images: </strong><br>
+    <% @post.images.each do |attachment| %>
+      <% if attachment.image? %>
+        <%= image_tag attachment, width: "200px" %>
+        <%#= image_tag @post.image, width: "200px" %>
+      <% elsif attachment.audio? %>
+      <strong>Audios: </strong><br>
+        <audio controls>
+          <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>">
+        </audio><br>
+        <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %><br>
+      <strong>Vidéos: </strong>
+      <% elsif attachment.video? %>
+        <video controls width="480" >
+          <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>" />
+        </video>
+      <% else %>
+        <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "attachment") %>
+      <% end %>
     <% end %>
   <% else %>
     Pas d'image

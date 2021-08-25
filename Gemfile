@@ -26,6 +26,9 @@ gem "omniauth-rails_csrf_protection"
 gem 'acts_as_votable'
 gem 'pagy'
 gem 'faker'
+gem 'active_storage_validations'
+gem 'mini_magick'
+gem 'letter_opener', group: :development
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
