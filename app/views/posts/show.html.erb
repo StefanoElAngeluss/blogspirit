@@ -26,14 +26,13 @@
     <strong>Images: </strong><br>
     <% @post.images.each do |attachment| %>
       <% if attachment.image? %>
-        <%= image_tag attachment, width: "200px" %>
+        <%= image_tag attachment, width: "200px" %><br><br>
         <%#= image_tag @post.image, width: "200px" %>
       <% elsif attachment.audio? %>
       <strong>Audios: </strong><br>
         <audio controls>
           <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>">
         </audio><br>
-        <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %><br>
       <strong>Vidéos: </strong>
       <% elsif attachment.video? %>
         <video controls width="480" >
@@ -42,6 +41,7 @@
       <% else %>
         <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "attachment") %>
       <% end %>
+      <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
     <% end %>
   <% else %>
     Pas d'image

@@ -1,8 +1,12 @@
-<h1>Posts: 
-  <span class="badge bg-secondary" style="font-size:24px; my-0 py-0">
+<h1 class="d-flex justify-content-between"> 
+  <span class="bg-dark bg-opacity-80 bg-gradient rounded text-white-50" style="font-size:48px; my-0 py-0">
+    <span class="text-primary">Articles:</span>
     <%= @posts.count %>
   /
     <%= Post.count %>
+  </span>
+  <span>
+    <%= link_to "Créer un nouvel article", new_post_path, class: "btn btn-primary" %>
   </span>
 </h1>
 
@@ -41,16 +45,12 @@
           </audio>
         <% else %>
           <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "attachment") %>
-        <% end %>
+        <% end %><br><br>
+      <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
       <% end %>
     <% else %>
       Pas d'image
     <% end %>
     <br>
-    
   <hr>
 <% end %>
-
-<br>
-
-<%= link_to "Créer un nouvel article", new_post_path, class: "btn btn-primary" %>
