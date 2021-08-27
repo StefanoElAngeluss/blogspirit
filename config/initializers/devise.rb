@@ -290,9 +290,9 @@ Devise.setup do |config|
     #   "PHo_F83TupHWLt2IL28YWUjk"
 
   # config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
-  # config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
+  config.omniauth :google_oauth2, "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com", "PHo_F83TupHWLt2IL28YWUjk"
   config.omniauth :github, Rails.application.credentials.dig(:github, :id), Rails.application.credentials.dig(:github, :secret), scope: 'user'
-  config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :client_id), Rails.application.credentials.dig(:google_oauth2, :api_key)
+  # config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :client_id), Rails.application.credentials.dig(:google_oauth2, :api_key)
   config.omniauth :twitter, Rails.application.credentials.dig(:twitter, :id), Rails.application.credentials.dig(:twitter, :secret)
   config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :id), Rails.application.credentials.dig(:facebook, :secret)
 
