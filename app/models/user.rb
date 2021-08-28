@@ -6,7 +6,7 @@ class User < ApplicationRecord
   
   attr_accessor :login
 
-  has_many :posts, dependent: :destroy
+  # has_many :posts, dependent: :destroy
 
   def to_s
     email
