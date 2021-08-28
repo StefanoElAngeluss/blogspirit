@@ -20,7 +20,7 @@
           <% if current_user.provider.present? %>
             <b>Provider: </b><%= current_user.provider %>
             <br>
-            <b>UID: </b><%= current_user.uid %>
+            <b>UID: </b><%= current_user.name %><%= current_user.uid %>
           <% else %>
             <b>Provider: </b> Inscription manuel par Email
             <br>

@@ -10,6 +10,5 @@
   Post.create(
     title: Faker::Lorem.sentence(word_count: 3),
     content: Faker::Lorem.sentence,
-    user_id: 2
   )
 end
