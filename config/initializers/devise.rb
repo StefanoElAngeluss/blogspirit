@@ -292,16 +292,16 @@ Devise.setup do |config|
   # config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
   # config.omniauth :google_oauth2, "783199419252-2cih4c9f2ldra1o58lftgq53al3lvdhm.apps.googleusercontent.com", "X1VE1rxja4mfq8DZ9W9q1yAP"
   if Rails.application.credentials[Rails.env.to_sym].present? && Rails.application.credentials[Rails.env.to_sym][:github].present?
-    config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id], Rails.application.credentials[Rails.env.to_sym][:github][:secret] 
+    config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id], Rails.application.credentials[Rails.env.to_sym][:github][:secret], scope: 'user'
   end
   if Rails.application.credentials[:google_oauth2].present?
-    config.omniauth :google_oauth2, Rails.application.credentials[:google_oauth2][:client_id], Rails.application.credentials[:google_oauth2][:api_key] 
+    config.omniauth :google_oauth2, Rails.application.credentials[:google_oauth2][:client_id], Rails.application.credentials[:google_oauth2][:api_key]
   end
   if Rails.application.credentials[:facebook].present?
-    config.omniauth :facebook, Rails.application.credentials[:facebook][:id], Rails.application.credentials[:facebook][:secret] 
+    config.omniauth :facebook, Rails.application.credentials[:facebook][:id], Rails.application.credentials[:facebook][:secret]
   end
   if Rails.application.credentials[:twitter].present?
-    config.omniauth :twitter, Rails.application.credentials[:twitter][:id], Rails.application.credentials[:twitter][:secret] 
+    config.omniauth :twitter, Rails.application.credentials[:twitter][:id], Rails.application.credentials[:twitter][:secret]
   end
 
   # ==> Warden configuration

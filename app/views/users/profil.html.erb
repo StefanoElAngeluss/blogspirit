@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-8 col-xxl-8 col-xl-8 col-md-8 col-lg-8 m-auto">
+
+      <div class="card">
+        <% if user_signed_in?%>
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body">
+          <h1 align="center" class="text-uppercase">Mon Profil</h1>
+          
+          <p class="card-text">
+            <hr>
+            <% if current_user.provider.present? %>
+              <div class="container">
+                <h3 class=text-success>Réseau Social:</h3>
+                  <% if current_user.avatar.attached? %>
+                    <%#= image_tag current_user.avatar, size: "30x30" %>
+                    <b>Avatar: </b><%= image_tag current_user.avatar, size: "120x120" %><br>
+                    <!--<b>Avatar: </b><%= current_user.avatar %>-->
+                  <% else %>
+                    <b>Avatar: </b> <span class="text-danger">"Pas d'avatar..."</span>
+                  <% end %>
+                  <br>
+                  <b>Nom d'utilisateur: </b><%= current_user.username %>
+                  <br>
+                  <b>Adresse Email: </b><%= current_user.email %>
+                  <br>
+                  <b>Provider: </b><%= current_user.provider %>
+                  <br>
+                  <b>UID: </b><%= current_user.uid %>
+                  <br>
+                  <b>Nombre de connexion: </b><%= current_user.sign_in_count %>
+                  <br>
+                  <b>Connexion Active: </b><%= l(current_user.current_sign_in_at, format: :long) %>
+                  <br>
+                  <b>Dernière connexion: </b><%= l(current_user.last_sign_in_at, format: :long) %>
+            <% else %>
+                <div class="container">
+              <div class="row">
+                  <div class="col-8 col-sm-8 col-xxl-8 col-xl-8 col-md-8 col-lg-8">
+                    <h3 class=text-success>Manuel: </h3>
+                      <b>Nom d'utilisateur: </b><%= current_user.username %><br>
+                      <b>Adresse Email: </b><%= current_user.email %><br>
+                      <b>Ville: </b><%= current_user.city %><br>
+                      <b>Code Postale: </b><%= current_user.zipcode %><br>
+                      <b>Pays: </b><%= current_user.country %>
+                  </div>
+                  <div class="col-4 mt-3">
+                    <% if current_user.avatar.present? %>
+                      <b>Avatar: </b><%= image_tag current_user.avatar, size: "120x120", class: "img-top" %>
+                    <% else %>
+                      <b>Avatar: </b> <span class="text-danger">"Pas d'avatar..."</span>
+                    <% end %>
+                  </div>
+              </div>
+            <% end %>
+          </p>
+
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <h4 class="card-title"><span class="text-primary">Adresse Email: </span> <%= current_user.email %></h4>
+          <span>
+            <% if current_user.provider.present? %>
+              <%= link_to "Mes Apps Github", "https://github.com/settings/connections/applications/", class: "btn btn-sm btn-outline-primary" %>
+            <% else %>
+            <% end %>
+          </span>
+        </div>
+        <% end %>
+      </div> <!-- Fin de card -->
+
+    </div>
+  </div>
+</div>

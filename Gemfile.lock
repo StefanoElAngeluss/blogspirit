@@ -67,7 +67,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.7.7)
+    bootsnap (1.8.1)
       msgpack (~> 1.0)
     boring_generators (0.11.0)
       railties
@@ -127,7 +127,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_magick (4.11.0)
-    mini_mime (1.1.0)
+    mini_mime (1.1.1)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -203,7 +203,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.1)
+    rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     railties (6.1.4.1)
       actionpack (= 6.1.4.1)
@@ -266,6 +266,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  actiontext (~> 6.1, >= 6.1.4.1)
   active_storage_validations
   acts_as_votable
   bootsnap (>= 1.4.4)

@@ -1,12 +1,18 @@
 class User < ApplicationRecord
 	# Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
 				 :validatable, :omniauthable, omniauth_providers: [:github, :google_oauth2, :facebook]
   
   attr_accessor :login
 
-  # has_many :posts, dependent: :destroy
+  has_many :posts, dependent: :destroy
+
+  has_one_attached :avatar
+  # validates :image, attached: true,
+  #           content_type: [:png, :jpg, :jpeg],
+  #           size: { less_than: 100.megabytes },
+  #           dimension: { width: { min: 800, max: 2400 } }
 
   def to_s
     email
@@ -16,10 +22,10 @@ class User < ApplicationRecord
 
 	def self.from_omniauth(auth)
   	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    	user.username = auth.info.name   # assuming the user model has a name
     	user.email = auth.info.email
     	user.password = Devise.friendly_token[0, 20]
-    	user.username = auth.info.name   # assuming the user model has a name
-    	# user.image = auth.info.image # assuming the user model has an image
+    	user.image = auth.info.image # assuming the user model has an image
     	# If you are using confirmable and the provider(s) you use validate emails,
     	# uncomment the line below to skip the confirmation emails.
   #   	user.skip_confirmation!

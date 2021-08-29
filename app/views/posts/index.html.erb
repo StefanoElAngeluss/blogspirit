@@ -20,7 +20,7 @@
 <%== pagy_bootstrap_nav(@pagy) %>
 
 <% @posts.each do |post| %>
-<a href=" <%= post_path(post) %> "><%= post.title %></a>
+  <a href="<%= post_path(post) %>"><%= post.title %></a>
     <br>
     <div class="container">
       <div class="d-flex justify-content-start">
@@ -30,6 +30,7 @@
       </div>
     </div>
     <br>
+
     <% if post.images.attached? %>
       <% post.images.each do |attachment| %>
         <% if attachment.image? %>

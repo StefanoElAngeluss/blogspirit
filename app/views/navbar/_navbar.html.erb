@@ -9,21 +9,28 @@
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="<%= root_path %>"><i class="fa fa-home"></i> Accueil</a>
         </li>
+        <% if user_signed_in? %>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Articles", posts_path, class: "nav-link" %>
         </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Compte
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <% if user_signed_in? %>
-              <li><%= link_to current_user.username.capitalize, edit_user_registration_path, class: "dropdown-item #{ yield(:user) } text-info bg-dark" %></li>
+              <%= link_to "Mon Profil", profil_path, class: "dropdown-item" %>
+              <li><%= link_to "Editer: " + current_user.username.capitalize || current_user.username.capitalize, edit_user_registration_path, class: "dropdown-item #{ yield(:user) } text-info bg-dark" %></li>
+              <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            <% else %>
+              <%= link_to "Connexion", new_user_session_path, :method => 'get', class: "dropdown-item" %>
+              <%= link_to "Inscription", new_user_registration_path, :method => 'get', class: "dropdown-item" %>
+              
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
             <% end %>
-            <%= link_to "Articles", posts_path(@post), class: "dropdown-item" %>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">

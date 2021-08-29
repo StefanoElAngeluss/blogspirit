@@ -1,8 +1,11 @@
 class Post < ApplicationRecord
-  # belongs_to :user
+  belongs_to :user
 
   has_one_attached :image
   has_many_attached :images
+
+  # action_text from rails 6
+  has_rich_text :content
 
   acts_as_votable
 

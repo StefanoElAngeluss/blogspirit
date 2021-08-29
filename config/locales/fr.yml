@@ -90,8 +90,11 @@ fr:
       errors:
         empty_text: "Le commentaire n'a pas été enregistré puisque le texte était vide."
     devise:
-      username:
+      login:
         title: "Nom d'utilisateur"
+      username:
+        login: "Nom d'utilisateur"
+        username: "Nom d'utilisateur"
       email:
         title: "Email"
       subdomain:
@@ -347,6 +350,6 @@ fr:
     am: am
     formats:
       default: "%d %B %Y %Hh %Mmin %Ss"
-      long: "%A %d %B %Y %Hh%M"
+      long: "%A %d %B %Y à %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm

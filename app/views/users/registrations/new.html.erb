@@ -9,8 +9,28 @@
   </div>
 
   <div class="field">
+    <%= f.label "Avatar Utilisateur:" %>
+    <%= f.file_field :avatar  %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city, autocomplete: "city" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :zipcode %><br />
+    <%= f.text_field :zipcode, autocomplete: "zipcode" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %><br />
+    <%= f.text_field :country, autocomplete: "country" %>
   </div>
 
   <div class="field">
