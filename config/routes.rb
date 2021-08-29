@@ -5,7 +5,13 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
-    registrations: "users/registrations" }
+    registrations: "users/registrations",
+    confirmations: "users/confirmations" }
+  resources :users, only: [:profil] do
+    member do
+      patch :ban
+    end
+  end
 
   resources :posts do
     member do

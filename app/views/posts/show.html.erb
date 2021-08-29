@@ -12,6 +12,9 @@
       <h5><%= @post.created_at %></h5>
       <% if @post.image.attached? %>
         <%= image_tag @post.image, width: "400px", height: "300px", class: "card-img-top" %>
+        <div class="d-flex justify-content-end">
+          <%= link_to "Supprimer le fichier", purge_image_post_path, method: :delete, data: { disable_with: "Suppression en cours..." }, class: "btn btn-sm btn-danger" %>
+        </div>
       <% else %>
         Pas d'image
       <% end %>

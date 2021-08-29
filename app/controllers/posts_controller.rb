@@ -27,7 +27,6 @@ class PostsController < ApplicationController
     @post.image.purge
     redirect_back fallback_location: root_path, notice: "Successfully"
   end
-  
 
   # GET /posts or /posts.json
   def index
