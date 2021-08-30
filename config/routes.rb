@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users, only: [:profil] do
     member do
       patch :ban
+      patch :resend_invitation
     end
   end
 

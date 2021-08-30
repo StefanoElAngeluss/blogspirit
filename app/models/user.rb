@@ -1,19 +1,20 @@
 class User < ApplicationRecord
 	# Include default devise modules. Others available are:
   # :timeoutable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
+  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :confirmable, :validatable, :lockable,
          :omniauthable, omniauth_providers: [:github, :google_oauth2, :facebook]
   
   attr_accessor :login
 
   has_many :posts, dependent: :destroy
+  has_many :invites, class_name: 'User', foreign_key: :invited_by_id
 
   has_one_attached :avatar
-  validates :avatar, attached: true,
-            content_type: [:png, :jpg, :jpeg],
-            size: { less_than: 100.megabytes },
-            dimension: { width: { min: 16, max: 2400 } }
+  # validates :avatar, attached: true,
+  #           content_type: [:png, :jpg, :jpeg],
+  #           size: { less_than: 100.megabytes },
+  #           dimension: { width: { min: 16, max: 2400 } }
 
   def to_s
     email

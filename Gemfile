@@ -30,6 +30,7 @@ gem 'active_storage_validations'
 gem 'mini_magick'
 gem 'letter_opener', group: :development
 gem 'actiontext', '~> 6.1', '>= 6.1.4.1'
+gem 'devise_invitable'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

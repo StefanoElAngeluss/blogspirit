@@ -21,6 +21,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <% if user_signed_in? %>
               <%= link_to "Mon Profil", profil_path, class: "dropdown-item" %>
+              <%= link_to "Inviter un(e) ami(e)", new_user_invitation_path, class: "dropdown-item" %>
               <li><%= link_to "Editer: " + current_user.username.capitalize || current_user.username.capitalize, edit_user_registration_path, class: "dropdown-item #{ yield(:user) } text-info bg-dark" %></li>
               <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             <% else %>

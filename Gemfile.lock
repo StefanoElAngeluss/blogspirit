@@ -81,6 +81,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.5)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     erubi (1.10.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
@@ -273,6 +276,7 @@ DEPENDENCIES
   boring_generators
   byebug
   devise (~> 4.8)
+  devise_invitable
   faker
   image_processing (>= 1.2)
   jbuilder (~> 2.7)

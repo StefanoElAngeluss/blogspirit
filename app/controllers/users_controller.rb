@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
 
+  def index
+    @users = User.all
+  end
+  
+
   def purge
     @user = User.find(params[:id])
     @user.avatar.purge_avatar
@@ -13,12 +18,23 @@ class UsersController < ApplicationController
     else
       if @user.access_locked?
         @user.unlock_access!
-        redirect_to root_path, notice: "Accès utilisateur verrouillé: #{"Non"}"
+        # redirect_to root_path, notice: "Accès utilisateur verrouillé: #{"Non"}"
       else
         @user.lock_access!
-        redirect_to root_path, notice: "Accès utilisateur verrouillé: #{"Oui"}"
+        # redirect_to root_path, notice: "Accès utilisateur verrouillé: #{"Oui"}"
       end
     end
   end
+
+  def resend_invitation
+    @user = User.find(params[:id])
+    if @user.created_by_invite? && @user.invitation_accepted? == false
+      @user.invite!
+      redirect_to root_path, alert: "Vous avez ré-invitez un(e) ami(e)"
+    else
+      redirect_to root_path, alert: "Votre compte est déjà activé"
+    end
+  end
+  
 
 end
