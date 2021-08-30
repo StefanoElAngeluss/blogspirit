@@ -29,6 +29,16 @@ class PostsController < ApplicationController
     redirect_back fallback_location: root_path, notice: "Successfully"
   end
 
+  def update_status
+    @post = Post.find(params[:id])
+    # if params[:status].present? && Post::STATUSES.include?(params[:status].to_sym)
+      @post.update(status: params[:status])
+      redirect_to @post, notice: "Le status de l'article à bien été changé à #{@post.status}"
+    # else
+      # redirect_to @post, notice: "Erreur lors de l'interraction"
+    # end
+  end
+
   # GET /posts or /posts.json
   def index
     # @pagy, @posts = pagy(Post.all.order(created_at: :desc), items: 4)

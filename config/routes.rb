@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       delete :purge_image
       patch "upvote", to: "posts#upvote"
       patch "downvote", to: "posts#downvote"
+
+      patch :update_status
     end
   end
 

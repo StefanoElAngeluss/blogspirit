@@ -12,17 +12,17 @@ gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
-gem "image_processing", ">= 1.2"
+gem 'image_processing', '>= 1.2'
 
 ## AJOUT PERSONNEL
 gem 'boring_generators'
-gem "devise", "~> 4.8"
-gem "omniauth"
-gem "omniauth-github"
+gem 'devise', '~> 4.8'
+gem 'omniauth'
+gem 'omniauth-github'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'acts_as_votable'
 gem 'pagy'
 gem 'faker'
@@ -32,6 +32,7 @@ gem 'letter_opener', group: :development
 gem 'actiontext', '~> 6.1', '>= 6.1.4.1'
 gem 'devise_invitable'
 gem 'invisible_captcha'
+gem 'rolify'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

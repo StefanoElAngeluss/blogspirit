@@ -5,9 +5,10 @@ class Post < ApplicationRecord
 
   has_one_attached :image
   has_many_attached :images
-
   # action_text from rails 6
   has_rich_text :content
+
+  STATUSES = ["En construction", "|", "Article publié !!!", "|", "L'article n'est pas publier"]
 
   acts_as_votable
 
@@ -20,4 +21,6 @@ class Post < ApplicationRecord
             limit: { min: 1, max: 3, message: 'Vous avez dépasser le nombre autoriser.' },
             content_type: [:png, :jpg, :jpeg, :mp3],
             attached: { message: 'Plusieurs images doivent être séléctionner.' }
+
+  validates :status, presence: true
 end
