@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
-  belongs_to :user
+  # rails c puis entrez cette commande:
+  # User.find_each { |u| User.reset_counters(u.id, :posts) }
+  belongs_to :user, counter_cache: true
 
   has_one_attached :image
   has_many_attached :images

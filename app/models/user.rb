@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_many :invites, class_name: 'User', foreign_key: :invited_by_id
 
   has_one_attached :avatar
-  # validates :avatar, attached: true,
-  #           content_type: [:png, :jpg, :jpeg],
-  #           size: { less_than: 100.megabytes },
-  #           dimension: { width: { min: 16, max: 2400 } }
+  validates :avatar, attached: true,
+            content_type: [:png, :jpg, :jpeg],
+            size: { less_than: 100.megabytes },
+            dimension: { width: { min: 16, max: 2400 } }
 
   def to_s
     email

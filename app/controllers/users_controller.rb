@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
 
-  def index
+  def profil
     @users = User.all
   end
-  
 
   def purge
     @user = User.find(params[:id])
@@ -35,6 +34,5 @@ class UsersController < ApplicationController
       redirect_to root_path, alert: "Votre compte est déjà activé"
     end
   end
-  
 
 end

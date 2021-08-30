@@ -20,37 +20,56 @@
       
       <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-danger" %><br><br>
       
-      <b>Accès au site : </b><span class="badge bg-success">Oui</span><br>
-      <b>Nom d'utilisateur: </b><%= user.username %><br>
-      <b>Adresse Email: </b><%= user.email %><br>
+      <p>
+        <b>Accès au site : </b><span class="badge bg-success" style="font-weight:bold!important;font-size:14px;">Oui</span>
+      </p>
+      <p>
+        <b>Nom d'utilisateur: </b><%= user.username %>
+      </p>
+      <p>
+        <b>Nombre d'articles: </b><span class="badge bg-light text-black rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.posts_count %></span>
+      </p>
       
-      <% if user.created_by_invite? && user.invitation_accepted? == false %>
-        <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch, class: "btn btn-sm btn-outline-primary", style: "text-decoration:none;text-hover:none;padding:1px 10px;" %><br>
-      <% end %>
-      <!--<% if user.created_by_invite?.present? %>
-        <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch %><br>
+      <p>
+        <% if user.created_by_invite? && user.invitation_accepted? == false %>
+          <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch, class: "btn btn-sm btn-outline-primary", style: "text-decoration:none;text-hover:none;padding:1px 10px;" %><br>
+        <% end %>
+        <!--<% if user.created_by_invite?.present? %>
+          <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch %><br>
+        <% else %>
+          <%= link_to "Envoyer une invitation", new_user_invitation_path %><br>
+        <% end %>-->
+      </p>
+    
+    <% end %>
+
+    <p>
+      <% if user.invitation_accepted?  %>
+        <b>Invitation accepté ?: </b><span class="badge bg-success" style="font-weight:bold!important;font-size:14px;">Oui</span><br>
       <% else %>
-        <%= link_to "Envoyer une invitation", new_user_invitation_path %><br>
-      <% end %>-->
-    <% end %>
+        <b>Invitation accepté ?: </b><span class="badge bg-danger" style="font-weight:bold!important;font-size:14px;">Non</span><br>
+      <% end %>
+    </p>
 
-    <% if user.invitation_accepted?  %>
-      <b>Invitation accepté ?: </b><span class="badge bg-success">Oui</span><br>
-    <% else %>
-      <b>Invitation accepté ?: </b><span class="badge bg-danger">Non</span><br>
-    <% end %>
+    <p>
+      <b>Adresse Email: </b><%= user.email %><br>
+    </p>
 
-    <% if user.created_by_invite? %>
-      <b>Invité(e) par un(e) ami(e) || utilisateur: </b><span class="badge bg-success">Oui</span><br>
-    <% else %>
-      <b>Invité(e) par un(e) ami(e) || utilisateur: </b><span class="badge bg-danger">Non</span><br>
-    <% end %>
+    <p>
+      <% if user.created_by_invite? %>
+        <b>Invité(e) par un(e) ami(e) || utilisateur: </b><span class="badge bg-success" style="font-weight:bold!important;font-size:14px;">Oui</span>
+      <% else %>
+        <b>Invité(e) par un(e) ami(e) || utilisateur: </b><span class="badge bg-danger" style="font-weight:bold!important;font-size:14px;">Non</span>
+      <% end %>
+    </p>
 
+    <p>
     <% if user.invites.count == 0 %>
-      <b>Invitation envoyer à un utilisateur: </b><span class="badge bg-dark"><%= user.invites.count %></span><br>
+      <b>Invitation envoyer à un utilisateur: </b><span class="badge bg-dark rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.invites.count %></span>
     <% else %>
-      <b>Invitation envoyer à un utilisateur: </b><span class="badge bg-primary"><%= user.invites.count %></span><br>
+      <b>Invitation envoyer à un utilisateur: </b><span class="badge bg-primary rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.invites.count %></span>
     <% end %>
+    </p>
+  
   <% end %><hr>
-
 <% end %>
