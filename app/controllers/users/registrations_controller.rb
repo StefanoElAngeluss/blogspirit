@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
+  invisible_captcha only: [:create]
 
   protected
 
