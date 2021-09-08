@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   def index
     if current_user.has_role? :admin
-      @users = User.order(created_at: :desc)
+      @users = User.order(created_at: :asc)
       authorize @users
     else
       redirect_to root_path, alert: "Vous n'avez pas l'autorisation !"
@@ -13,6 +13,11 @@ class UsersController < ApplicationController
     # else
     #   redirect_to root_path, alert: "Vous n'avez pas l'autorisation !"
     # end
+  end
+
+  def profil
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   def edit

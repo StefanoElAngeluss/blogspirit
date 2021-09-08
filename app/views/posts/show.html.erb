@@ -11,9 +11,9 @@
             <h3>Status de l'article</h3>
             <%= @post.status %><br>
             <hr>
-            <% Post::STATUSES.each do |status| %>
-                <%= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>
-            <% end %>
+            <%# Post::STATUSES.each do |status| %>
+                <%#= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>
+            <%# end %>
           </div>
         </div>
       </div>

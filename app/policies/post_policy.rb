@@ -15,4 +15,9 @@ class PostPolicy < ApplicationPolicy
     true
     # false  = n'as pas d'accès aux articles.
   end
+
+  def edit
+    false
+  end
+  
 end

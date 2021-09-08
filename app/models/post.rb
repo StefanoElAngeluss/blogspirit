@@ -17,7 +17,16 @@ class Post < ApplicationRecord
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
 
-  STATUSES = ['En construction', '|', 'Article publié !!!', '|', "L'article n'est pas publier"].freeze
+  STATUSES = ['Brouillon', 'Article publié', "Article banni"].freeze
+  validates :status, inclusion: { in: Post::STATUSES }
+
+  scope :brouillon, -> { where(status: 'Brouillon') }
+  scope :article_publié, -> { where(status: 'Article publié') }
+  scope :article_banni, -> { where(status: 'Article banni') }
+
+  def article_banni?
+    status == 'banni'
+  end
 
   acts_as_votable
 

@@ -20,6 +20,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Post::STATUSES %>
+  </div>
+
+  <div class="field">
     <%= form.label "Image Simple:" %>
     <%= form.file_field :image  %>
   </div>

@@ -1,8 +1,41 @@
 <h1>Accueil</h1>
 
 <% if user_signed_in? %>
-  <% @users.each do |user| %>
+  <% @users.order(created_at: :asc).each do |user| %>
     <% if current_user.has_role? :admin %>
+      <%= user.email %>
+      <%= user.roles.pluck(:name) %>
+      <span>
+        <p>
+          Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>
+        </p>
+      </span>
+      <span>
+          <%= user.username %>
+          peut voir l'index des utilisateurs ?:
+          <% if current_user.has_role? :admin %>
+            <%= content_tag(:span, value=("Oui"), class: "badge bg-success") %>
+          <% else %>
+            <%= content_tag(:span, value=("Non"), class: "badge bg-danger") %>
+          <% end %>
+          <%#= boolean_label(policy(User).index?) %>
+      </span>
+      <span>
+        <p>
+          <%= user.username %>
+          peut modifier un utilisateur:
+          <% if user.has_role? :nouvel_utilisateur %>
+            <%= content_tag(:span, value=("Non"), class: "badge bg-danger") %>
+          <% else %>
+            <%= content_tag(:span, value=("Oui"), class: "badge bg-success") %>
+          <% end %>
+          <p>
+            <%= link_to "Editer le Role", edit_user_path(user) if policy(User) %><br>
+          </p>
+        </p>
+      </span>
+        <hr width="500">
+    <% else %>
       <%= user.email %>
       <%= user.roles.pluck(:name) %>
       <span>
@@ -25,7 +58,6 @@
           </p>
         </p>
       </span>
-        <hr width="500">
     <% end %>
   <% end %>
 <% end %>
@@ -40,8 +72,8 @@
         <b>Nom d'utilisateur: </b><%= user.username %><br>
         <b>Adresse Email: </b><%= user.email %><br>
       
-      <% else %><br>
-        
+      <% else %>
+
         <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-danger" %><br><br>
         
         <p>
@@ -94,7 +126,9 @@
     <% else %>
       <b>Invitation envoyer à un utilisateur: </b><span class="badge bg-primary rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.invites.count %></span>
     <% end %>
+
+    <hr width="500">
     </p>
   
-  <% end %><hr>
+  <% end %>
 <% end %>
