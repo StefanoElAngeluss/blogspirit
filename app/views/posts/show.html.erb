@@ -7,35 +7,42 @@
     <div class="card">
       <div class="container">
         <div class="col-12">
-          <div class="col-6 m-auto">
+          <div class="col-6">
             <h3>Status de l'article</h3>
             <%= @post.status %><br>
             <hr>
             <% Post::STATUSES.each do |status| %>
-
                 <%= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>
-
             <% end %>
           </div>
-          <div class="col-3"></div>
-          </div>
+        </div>
       </div>
       <h1>Dernier Article</h1>
-      <h2><%= @post.title %></h2>
-      <h5><%= @post.created_at %></h5>
-      <% if @post.image.attached? %>
-        <%= image_tag @post.image, width: "400px", height: "300px", class: "card-img-top" %>
-        <div class="d-flex justify-content-end">
-          <%= link_to "Supprimer le fichier", purge_image_post_path, method: :delete, data: { disable_with: "Suppression en cours..." }, class: "btn btn-sm btn-danger" %>
-        </div>
-      <% else %>
-        Pas d'image
-      <% end %>
-      <p><%= @post.content %></p>
+      <p>
+        <h2><%= @post.title %></h2>
+        <h5><small><b>Créer le:</b></small> <%= l(@post.created_at, format: :long) %></h5>
+      </p>
+      <p>
+        <h3>Image de l'article:</h3>
+        <% if @post.image.attached? %>
+          <p>
+            <%= image_tag @post.image, width: "400px", height: "300px", class: "card-img-top" %>
+          </p>
+          <div class="d-flex justify-content-end">
+            <%= link_to "Supprimer le fichier", purge_image_post_path, method: :delete, data: { disable_with: "Suppression en cours..." }, class: "btn btn-sm btn-danger" %>
+          </div>
+        <% else %>
+          Pas d'image
+        <% end %>
+      </p>
+      <p>
+        <h3>Contenu de l'article:</h3>
+        <%= @post.content %>
+      </p>
     </div>
   </div>
   <div class="rightcolumn">
-    <div class="card">
+    <div class="card" style="padding:0px 50px!important" align="center">
       <h1>Portfolio</h1>
       <% if @post.images.attached? %>
         <% @post.images.each do |attachment| %>
@@ -61,21 +68,18 @@
         Pas d'image
       <% end %>
     </div>
-    <div class="card">
+    <div class="card" style="padding:10px!important" align="center">
       <h3>Suivez nous</h3>
       <p>Some text..</p>
-      <div class="card-footer">
-        Publier le <strong><%= @post.created_at %></strong><br>
-        par - <strong><%= @post.user_id = current_user.username.capitalize %></strong>
+      <div class="card-footer" style="margin:auto!important;">
+        <small>Publier le</small> <strong><%= l(@post.created_at, format: :short) %></strong><br>
+        <p>
+          <small>par -</small> <strong><%= @post.user_id = current_user.username.capitalize %></strong>
+        </p>
         <div class="d-flex justify-content-end">
-          <%= link_to "Editer", edit_post_path(@post), class: "btn btn-sm btn-warning" %>&nbsp; | &nbsp;<%= link_to "Retour à l'accueil", posts_path, class: "btn btn-sm btn-danger" %>
+            <%= link_to "Editer", edit_post_path(@post), class: "btn btn-sm btn-warning" %>&nbsp; | &nbsp;<%= link_to "Retour à l'accueil", posts_path, class: "btn btn-sm btn-danger" %>
         </div>
       </div>
-    </div>
   </div>
-
-
-
-
 
 <br><br><br><br><br>

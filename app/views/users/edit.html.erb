@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center">
+  <span>Editer le ROLE UTILISATEUR de <h1> <%= @user.email %></h1></span> 
+</div>
+
+<hr>
+
+<div class="container col-6">
+  <%= form_with(model: @user) do |f| %>
+    <p>
+      <%= f.collection_check_boxes :role_ids, Role.where(resource_type: nil), :id, :name, class: "label_roles" %><br>
+    </p>
+    <p>
+      Messages d'érreurs: 
+      <b class="text-danger">
+        <%= @user.errors[:roles] %>
+      </b>
+    </p>
+
+    <p>
+      <%= f.button "Envoyer", class: "btn btn-primary" %>
+    </p>
+  <% end %>
+</div>

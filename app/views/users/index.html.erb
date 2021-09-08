@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-xxl-12 col-xl-12 col-md-12 col-lg-12 m-auto">
+
+      <div class="card">
+        <% if user_signed_in?%>
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body">
+          <h1 align="center" class="text-uppercase">Mon Profil</h1>
+          <p class="card-text">
+            <hr>
+            <% if current_user.provider.present? %>
+              <div class="container">
+                <h3 class=text-success>Réseau Social:</h3>
+                  <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
+                  <% if current_user.avatar.attached? %>
+                    <%#= image_tag current_user.avatar, size: "30x30" %>
+                    <b>Avatar: </b><%= image_tag current_user.avatar, size: "120x120" %><br>
+                    <!--<b>Avatar: </b><%= current_user.avatar %>-->
+                  <% else %>
+                    <b>Avatar: </b> <span class="text-danger">"Pas d'avatar..."</span>
+                  <% end %>
+                  <br>
+                  <b>Nom d'utilisateur: </b><%= current_user.username %><br>
+                  <b>Role Utilisateur: </b><%= current_user.roles.pluck(:name) %><br>
+                  <b>Adresse Email: </b><%= current_user.email %><br>
+                  <b>Provider: </b><%= current_user.provider %><br>
+                  <b>UID: </b><%= current_user.uid %><br>
+                  <b>Nombre d'articles: </b><%= current_user.posts_count %>
+                  <hr>
+                  <b>Nombre de connexion: </b><%= current_user.sign_in_count %>
+                  <br>
+                  <b>Connexion Active: </b><%= l(current_user.current_sign_in_at, format: :long) %><br>
+                  <b>Dernière connexion: </b><%= l(current_user.last_sign_in_at, format: :long) %>
+            <% else %>
+                <div class="container">
+              <div class="row">
+                  <div class="col-6 col-sm-6 col-xxl-6 col-xl-6 col-md-6 col-lg-6">
+                    <h3 class=text-success>Manuel: </h3>
+                      <b>Nom d'utilisateur: </b><%= current_user.username %><br>
+                      <b>Role Utilisateur: </b><%= current_user.roles.pluck(:name) %>
+                      <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %><br>
+                      <b>Adresse Email: </b><%= current_user.email %><br>
+                      <b>Ville: </b><%= current_user.city %><br>
+                      <b>Code Postale: </b><%= current_user.zipcode %><br>
+                      <b>Pays: </b><%= current_user.country %><br>
+                      <hr>
+                      <b>Nombre de connexion: </b><%= current_user.sign_in_count %><br>
+                      <b>Connexion Active: </b><%= l(current_user.current_sign_in_at, format: :short) %><br>
+                      <b>Dernière connexion: </b><%= l(current_user.last_sign_in_at, format: :short) %>
+                  </div>
+                  <div class="col-6 mt-3">
+                    <% if current_user.avatar.present? %>
+                      <p>
+                        <b>Avatar: </b><%= image_tag current_user.avatar, size: "200x200", class: "img-top" %>
+                        <%= link_to "Supprimer le fichier", purge_avatar_path(current_user), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
+                      </p>
+                    <% else %>
+                      <p>
+                        <b>Avatar: </b> <span class="text-danger">"Pas d'avatar..."</span>
+                      </p>
+                    <% end %>
+                    <span>
+                      <p>
+                        <%= current_user.username %>
+                        peut modifier un utilisateur:
+                        <%= boolean_label(policy(User).edit?) %>
+                      </p>
+                    </span>
+                    <span>
+                      <p>
+                        <%= current_user.username %>
+                        peut voir l'index des utilisateurs ?:
+                        <%= boolean_label(policy(User).index?) %>
+                      </p>
+                    </span>
+                  </div>
+              </div>
+            <% end %>
+          </p>
+
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <h4 class="card-title"><span class="text-primary">Adresse Email: </span> <%= current_user.email %></h4>
+            <span>
+              <% if current_user.provider.present? %>
+                <%= link_to "Mes Apps Github", "https://github.com/settings/connections/applications/", class: "btn btn-sm btn-outline-primary" %>
+              <% else %>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+        <span>
+          <% if current_user.confirmed? %>
+            <span class="badge bg-success">Compte confirmer le :</span>
+            <%= l(current_user.confirmed_at, format: :long) %>
+          <% else %>
+            <span class="badge bg-danger">Non confirmer</span>
+          <% end %>
+        </span>
+      </div> <!-- Fin de card -->
+
+    </div>
+  </div>
+</div>

@@ -1,13 +1,15 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   root 'accueil#index'
-  get "profil", to: "users#profil", as: "profil"
+  get 'profil', to: 'users#index', as: 'profil'
 
   devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks",
-    registrations: "users/registrations",
-    confirmations: "users/confirmations" }
-  resources :users, only: [:profil] do
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
+  resources :users do
     member do
       patch :ban
       patch :resend_invitation
@@ -17,14 +19,13 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       delete :purge_image
-      patch "upvote", to: "posts#upvote"
-      patch "downvote", to: "posts#downvote"
+      patch 'upvote', to: 'posts#upvote'
+      patch 'downvote', to: 'posts#downvote'
 
       patch :update_status
     end
   end
 
-  delete "attachments/:id/purge", to: "attachments#purge", as: "purge_fichiers"
-  delete "attachments/:id/purge", to: "attachments#purge", as: "purge_avatar" 
-
+  delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_fichiers'
+  delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_avatar'
 end

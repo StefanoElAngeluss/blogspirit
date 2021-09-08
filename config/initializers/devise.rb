@@ -9,8 +9,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-
-	config.omniauth :google_oauth2, "APP_ID", "APP_SECRET"
+  config.omniauth :google_oauth2, "APP_ID", "APP_SECRET"
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -27,7 +26,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -39,7 +38,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -329,28 +328,32 @@ Devise.setup do |config|
   # config.omniauth :github, "91ae0b1d42e4f7dcc5d2", "ec9a6a281bb427236d587ce31653dd9d22073e66", scope: "user,repo,gist"
   # config.omniauth :google_oauth2, "381163513208-khfmt9g1b2ltnrhd67l86313auk0p28t.apps.googleusercontent.com", "fFiHrhp_2q-dgzFxhFUTq-Q8"
 
-    # provider :github,
-    #   "91ae0b1d42e4f7dcc5d2",
-    #   "ec9a6a281bb427236d587ce31653dd9d22073e66",
-    #   scope: "user,repo,gist"
-      
-    # provider :google_oauth2,
-    #   "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com",
-    #   "PHo_F83TupHWLt2IL28YWUjk"
+  # provider :github,
+  #   "91ae0b1d42e4f7dcc5d2",
+  #   "ec9a6a281bb427236d587ce31653dd9d22073e66",
+  #   scope: "user,repo,gist"
+
+  # provider :google_oauth2,
+  #   "388492836990-37pgsbldvu8ef62bktf8v2nb66lhvmo0.apps.googleusercontent.com",
+  #   "PHo_F83TupHWLt2IL28YWUjk"
 
   # config.omniauth :facebook, "2906252596363888", "16cd6994c8170df28f0c5407321b5da5", token_params: { parse: :json }
   # config.omniauth :google_oauth2, "783199419252-2cih4c9f2ldra1o58lftgq53al3lvdhm.apps.googleusercontent.com", "X1VE1rxja4mfq8DZ9W9q1yAP"
   if Rails.application.credentials[Rails.env.to_sym].present? && Rails.application.credentials[Rails.env.to_sym][:github].present?
-    config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id], Rails.application.credentials[Rails.env.to_sym][:github][:secret], scope: 'user'
+    config.omniauth :github, Rails.application.credentials[Rails.env.to_sym][:github][:id],
+                    Rails.application.credentials[Rails.env.to_sym][:github][:secret], scope: "user"
   end
   if Rails.application.credentials[:google_oauth2].present?
-    config.omniauth :google_oauth2, Rails.application.credentials[:google_oauth2][:client_id], Rails.application.credentials[:google_oauth2][:api_key]
+    config.omniauth :google_oauth2, Rails.application.credentials[:google_oauth2][:client_id],
+                    Rails.application.credentials[:google_oauth2][:api_key]
   end
   if Rails.application.credentials[:facebook].present?
-    config.omniauth :facebook, Rails.application.credentials[:facebook][:id], Rails.application.credentials[:facebook][:secret]
+    config.omniauth :facebook, Rails.application.credentials[:facebook][:id],
+                    Rails.application.credentials[:facebook][:secret]
   end
   if Rails.application.credentials[:twitter].present?
-    config.omniauth :twitter, Rails.application.credentials[:twitter][:id], Rails.application.credentials[:twitter][:secret]
+    config.omniauth :twitter, Rails.application.credentials[:twitter][:id],
+                    Rails.application.credentials[:twitter][:secret]
   end
 
   # ==> Warden configuration

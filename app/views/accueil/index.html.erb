@@ -1,46 +1,71 @@
 <h1>Accueil</h1>
 
 <% if user_signed_in? %>
-  <%= link_to "logout", destroy_user_session_path, :method => 'delete' %>
-<% else %>
-  <%= link_to "Login", new_user_session_path, :method => 'get' %>
+  <% @users.each do |user| %>
+    <% if current_user.has_role? :admin %>
+      <%= user.email %>
+      <%= user.roles.pluck(:name) %>
+      <span>
+        <p>
+          Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>
+        </p>
+      </span>
+      <span>
+          <%= user.username %>
+          peut voir l'index des utilisateurs ?:
+          <%= boolean_label(policy(User).index?) %>
+      </span>
+      <span>
+        <p>
+          <%= user.username %>
+          peut modifier un utilisateur:
+          <%= boolean_label(policy(User).edit?) %>
+          <p>
+            <%= link_to "Editer le Role", edit_user_path(current_user) if policy(User) %><br>
+          </p>
+        </p>
+      </span>
+        <hr width="500">
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if user_signed_in? %>
   <% for user in @users %>
-
-    <% if user.locked_at? %>
-      <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-dark" %><br><br>
+    <% if current_user.has_role? :admin %>
+      <% if user.locked_at? %>
+        <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-dark" %><br><br>
+        
+        <b>Accès au site : </b><span class="badge bg-danger">Non</span><br>
+        <b>Nom d'utilisateur: </b><%= user.username %><br>
+        <b>Adresse Email: </b><%= user.email %><br>
       
-      <b>Accès au site : </b><span class="badge bg-danger">Non</span><br>
-      <b>Nom d'utilisateur: </b><%= user.username %><br>
-      <b>Adresse Email: </b><%= user.email %><br>
-    
-    <% else %><br><hr>
+      <% else %><br>
+        
+        <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-danger" %><br><br>
+        
+        <p>
+          <b>Accès au site : </b><span class="badge bg-success" style="font-weight:bold!important;font-size:14px;">Oui</span>
+        </p>
+        <p>
+          <b>Nom d'utilisateur: </b><%= user.username %>
+        </p>
+        <p>
+          <b>Nombre d'articles: </b><span class="badge bg-light text-black rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.posts_count %></span>
+        </p>
+        
+        <p>
+          <% if user.created_by_invite? && user.invitation_accepted? == false %>
+            <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch, class: "btn btn-sm btn-outline-primary", style: "text-decoration:none;text-hover:none;padding:1px 10px;" %><br>
+          <% end %>
+          <!--<% if user.created_by_invite?.present? %>
+            <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch %><br>
+          <% else %>
+            <%= link_to "Envoyer une invitation", new_user_invitation_path %><br>
+          <% end %>-->
+        </p>
       
-      <%= link_to ban_status(user), ban_user_path(user), method: :patch, data: { confirm: "Êtes vous sure de vouloir bannir cet utilisateur ?" }, class: "btn btn-sm btn-outline-danger" %><br><br>
-      
-      <p>
-        <b>Accès au site : </b><span class="badge bg-success" style="font-weight:bold!important;font-size:14px;">Oui</span>
-      </p>
-      <p>
-        <b>Nom d'utilisateur: </b><%= user.username %>
-      </p>
-      <p>
-        <b>Nombre d'articles: </b><span class="badge bg-light text-black rounded-pill" style="font-weight:bold!important;font-size:14px;"><%= user.posts_count %></span>
-      </p>
-      
-      <p>
-        <% if user.created_by_invite? && user.invitation_accepted? == false %>
-          <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch, class: "btn btn-sm btn-outline-primary", style: "text-decoration:none;text-hover:none;padding:1px 10px;" %><br>
-        <% end %>
-        <!--<% if user.created_by_invite?.present? %>
-          <%= link_to "Ré-envoyer une invitation", resend_invitation_user_path(user), method: :patch %><br>
-        <% else %>
-          <%= link_to "Envoyer une invitation", new_user_invitation_path %><br>
-        <% end %>-->
-      </p>
-    
+      <% end %>
     <% end %>
 
     <p>
