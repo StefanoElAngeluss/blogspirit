@@ -3,8 +3,12 @@
 <% if user_signed_in? %>
   <% @users.order(created_at: :asc).each do |user| %>
     <% if current_user.has_role? :admin %>
-      <%= user.email %>
-      <%= user.roles.pluck(:name) %>
+      <p>
+        <%= user.email %> -- 
+        <b>
+          <%= user.roles.pluck(:name).map { |tag| tag.capitalize }.to_sentence %>
+        </b>
+      </p>
       <span>
         <p>
           Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>

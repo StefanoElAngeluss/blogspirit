@@ -18,52 +18,60 @@
 <%== pagy_bootstrap_nav(@pagy) %>
 
 <% @posts.each do |post| %>
-  <h1><a href="<%= post_path(post) %>" style="text-decoration:none;"><%= post.title %></a></h1>
-    <br>
-    <div class="container">
-      <div class="d-flex justify-content-start">
-        <%= render 'posts/upvote_link', post: post %>&nbsp;&nbsp;
-        <%= render 'posts/like_count', post: post %>&nbsp;&nbsp;
-        <%= render 'posts/downvote_link', post: post %>
-      </div>
+  <h1>
+    <a href="<%= post_path(post) %>" style="text-decoration:none;">
+    <%= post.title %></a>
+  </h1>
+  <% if post.tags.present? %>
+    <b>Tags: </b><span><%= post.tags.map { |tag| tag.capitalize }.to_sentence %></span>
+  <% else %>
+    <b>Tags: </b><span>0</span>
+  <% end %>
+  <br>
+  <div class="container">
+    <div class="d-flex justify-content-start">
+      <%= render 'posts/upvote_link', post: post %>&nbsp;&nbsp;
+      <%= render 'posts/like_count', post: post %>&nbsp;&nbsp;
+      <%= render 'posts/downvote_link', post: post %>
     </div>
-    <br>
+  </div>
+  <br>
 
-    <span>
-      <h3>Contenu de l'article:</h3>
-        <%= post.content %>
-    </span>
+  <span>
+    <h3>Contenu de l'article:</h3>
+      <%= post.content %>
+  </span>
 
-    <br>
+  <br>
 
-    <h3>Image de l'article:</h3>
-    <% if post.images.attached? %>
-      <% post.images.each do |attachment| %>
-        <% if attachment.image? %>
-          <%= image_tag attachment, width: "200px;" %>
-          <%#= image_tag @post.image, width: "200px" %>
-        <% elsif attachment.video? %>
-          <video controls width="150" >
-            <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>" />
-          </video>
-        <% elsif attachment.audio? %>
-          <audio controls>
-            <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>">
-          </audio>
-        <% else %>
-          <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "attachment") %>
-        <% end %><br><br>
+  <h3>Image de l'article:</h3>
+  <% if post.images.attached? %>
+    <% post.images.each do |attachment| %>
+      <% if attachment.image? %>
+        <%= image_tag attachment, width: "200px;" %>
+        <%#= image_tag @post.image, width: "200px" %>
+      <% elsif attachment.video? %>
+        <video controls width="150" >
+          <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>" />
+        </video>
+      <% elsif attachment.audio? %>
+        <audio controls>
+          <source src="<%= rails_blob_url(attachment) %>" type="<%= attachment.content_type %>">
+        </audio>
+      <% else %>
+        <%= link_to attachment.filename, rails_blob_path(attachment, disposition: "attachment") %>
+      <% end %><br><br>
 
-        <!--<b>Publier par: </b> <%#= post.users.distinct.pluck(:email) %><br><br>
-        <b>Créateurs: </b> <%#= post.createur.distinct.pluck(:email) %><br><br>
-        <b>Éditeurs: </b> <%#= post.designer.distinct.pluck(:email) %><br><br>
-        <b>Éditeurs: </b> <%#= post.nouvel_utilisateur.distinct.pluck(:email) %><br><br>-->
+      <!--<b>Publier par: </b> <%#= post.users.distinct.pluck(:email) %><br><br>
+      <b>Créateurs: </b> <%#= post.createur.distinct.pluck(:email) %><br><br>
+      <b>Éditeurs: </b> <%#= post.designer.distinct.pluck(:email) %><br><br>
+      <b>Éditeurs: </b> <%#= post.nouvel_utilisateur.distinct.pluck(:email) %><br><br>-->
 
-      <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
-      <% end %>
-    <% else %>
-      Pas d'image
+    <%= link_to "Supprimer le fichier", purge_fichiers_path(attachment), method: :delete, data: { disable_with: "En cours..." }, class: "btn btn-sm btn-danger" %>
     <% end %>
-    <br>
+  <% else %>
+    Pas d'image
+  <% end %>
+  <br>
   <hr>
 <% end %>

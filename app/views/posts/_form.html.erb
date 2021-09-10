@@ -19,9 +19,23 @@
     <%= form.text_field :title %>
   </div>
 
+  <%# TAGS avec selection dropdown activer enum tags: ["ruby", "wordpress", "php", "html"] dans models/post %>
+  <%# <div class="field"> %>
+    <%#= form.label :tags %>
+    <%#= form.select :tags, Post.tags.keys, include_blank: true, prompt: "Selectionnez un tag" %>
+  <%# </div> %>
+
+  <%# TAGS avec checkbox activer TAGS = %i[ruby wordpress php html] dans models/post %>
+  <div class="field">
+    <% Post::TAGS.each do |key| %>
+      <%= form.label key %>
+      <%= form.check_box :tags, { multiple: true, checked: form.object.tags&.include?(key.to_s) }, key, nil %>
+    <% end %>
+  </div>
+
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Post::STATUSES %>
+    <%= form.select :status, Post.statuses.keys, include_blank: true, prompt: "Selectionnez un status" %>
   </div>
 
   <div class="field">

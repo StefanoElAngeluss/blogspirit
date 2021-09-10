@@ -10,6 +10,7 @@
           <div class="col-6">
             <h3>Status de l'article</h3>
             <%= @post.status %><br>
+            <%= @post.tags.map { |tag| tag.capitalize }.to_sentence %>
             <hr>
             <%# Post::STATUSES.each do |status| %>
                 <%#= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>

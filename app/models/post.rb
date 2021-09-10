@@ -10,6 +10,10 @@ class Post < ApplicationRecord
   # action_text from rails 6
   has_rich_text :content
 
+  enum status: ["Brouillon", "Article publié", "Article banni"], _default: 'Brouillon'
+  # enum tags: ["ruby", "wordpress", "php", "html"]
+  TAGS = %i[ruby wordpress php html]
+
   resourcify
 
   has_many :users, through: :roles, class_name: 'User', source: :users
@@ -17,16 +21,16 @@ class Post < ApplicationRecord
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
 
-  STATUSES = ['Brouillon', 'Article publié', "Article banni"].freeze
-  validates :status, inclusion: { in: Post::STATUSES }
+  # STATUSES = ['Brouillon', 'Article publié', "Article banni"].freeze
+  # validates :status, inclusion: { in: Post::STATUSES }
 
-  scope :brouillon, -> { where(status: 'Brouillon') }
-  scope :article_publié, -> { where(status: 'Article publié') }
-  scope :article_banni, -> { where(status: 'Article banni') }
+  # scope :brouillon, -> { where(status: 'Brouillon') }
+  # scope :article_publié, -> { where(status: 'Article publié') }
+  # scope :article_banni, -> { where(status: 'Article banni') }
 
-  def article_banni?
-    status == 'banni'
-  end
+  # def article_banni?
+  #   status == 'banni'
+  # end
 
   acts_as_votable
 

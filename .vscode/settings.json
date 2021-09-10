@@ -1,5 +1,7 @@
 {
   "editor.mouseWheelZoom": true,
   "editor.tabCompletion": "on",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "workbench.preferredDarkColorTheme": "Community Material Theme High Contrast",
+  "workbench.colorTheme": "Community Material Theme High Contrast"
 }
