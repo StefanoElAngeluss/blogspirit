@@ -5,7 +5,7 @@ body {
 }
 /* Header/Blog Title */
 .header {
-  padding: 80px !important;
+  padding: 60px !important;
   font-size: 40px;
   text-align: center;
   background: white;
@@ -21,7 +21,7 @@ body {
 /* Right column */
 .rightcolumn {
   float: left;
-  width: 25%;
+  width: 40%;
   padding-left: 20px;
 }
 
@@ -60,4 +60,16 @@ body {
     width: 100%;
     padding: 0;
   }
+}
+
+blockquote {
+  font-style:normal;
+  font-family:"Segoe Print", "Times New Roman", Verdana;
+  padding-left: 70px;
+  background: url('/packs/media/stylesheets/blockquote-0ac6a6c344d2c5287121bbf99a99ea0e.png');
+  background-repeat:no-repeat;
+  min-height: 40px;
+  line-height: 30px;
+  color: tomato;
+  z-index: 1;
 }

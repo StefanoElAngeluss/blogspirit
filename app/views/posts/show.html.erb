@@ -5,19 +5,18 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <div class="container">
-        <div class="col-12">
-          <div class="col-6">
-            <h3>Status de l'article</h3>
-            <%= @post.status %><br>
-            <%= @post.tags.map { |tag| tag.capitalize }.to_sentence %>
-            <hr>
-            <%# Post::STATUSES.each do |status| %>
-                <%#= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>
-            <%# end %>
-          </div>
-        </div>
-      </div>
+      <h3>Status de l'article</h3>
+        <%# <img src="/images/blockquote.png", width="50" height="50" /> %>
+      <blockquote class="quote">
+        <strong class="text-primary">Article Publié: </strong>
+        <%= @post.status %><br>
+        <strong class="text-primary">Tags de l'article: </strong>
+        <%= @post.tags.map { |tag| tag.capitalize }.to_sentence %>
+      </blockquote>
+      <hr>
+      <%# Post::STATUSES.each do |status| %>
+          <%#= link_to_unless @post.status.eql?(status.to_s), status, update_status_post_path(@post, status: status), method: :patch, style: "text-decoration:none;" %>
+      <%# end %>
       <h1>Dernier Article</h1>
       <p>
         <h2><%= @post.title %></h2>

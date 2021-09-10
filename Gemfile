@@ -36,6 +36,7 @@ gem 'omniauth-twitter'
 gem 'pagy'
 gem 'pundit'
 gem 'rolify'
+gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

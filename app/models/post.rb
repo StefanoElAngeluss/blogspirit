@@ -10,16 +10,31 @@ class Post < ApplicationRecord
   # action_text from rails 6
   has_rich_text :content
 
-  enum status: ["Brouillon", "Article publié", "Article banni"], _default: 'Brouillon'
-  # enum tags: ["ruby", "wordpress", "php", "html"]
-  TAGS = %i[ruby wordpress php html]
-
-  resourcify
-
   has_many :users, through: :roles, class_name: 'User', source: :users
   has_many :nouvel_utilisateur, -> { where(roles: { name: :nouvel_utilisateur }) }, through: :roles, class_name: 'User', source: :users
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
   has_many :designer, -> { where(roles: { name: :designer }) }, through: :roles, class_name: 'User', source: :users
+
+  enum status: ["Brouillon", "Article publié", "Article banni"], _default: 'Brouillon'
+  # enum tags: ["ruby", "wordpress", "php", "html"]
+  TAGS = %i[ruby wordpress php html]
+
+  acts_as_votable
+  resourcify
+
+  extend FriendlyId
+  friendly_id :slug_posts, use: [:slugged, :finders, :history]
+
+  def slug_posts
+    [
+      :title,
+      [:title, :content]
+    ]
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 
   # STATUSES = ['Brouillon', 'Article publié', "Article banni"].freeze
   # validates :status, inclusion: { in: Post::STATUSES }
@@ -31,8 +46,6 @@ class Post < ApplicationRecord
   # def article_banni?
   #   status == 'banni'
   # end
-
-  acts_as_votable
 
   validates :image, attached: true,
                     content_type: %i[png jpg jpeg],
