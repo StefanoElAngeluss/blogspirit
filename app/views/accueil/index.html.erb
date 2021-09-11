@@ -1,28 +1,46 @@
 <h1>Accueil</h1>
 
 <% if user_signed_in? %>
-  <% @users.order(created_at: :asc).each do |user| %>
-    <% if current_user.has_role? :admin %>
+  <%# Affichage d'un Utilisateur non Admin %>
+  <% if current_user.has_role? :admin %>
+    <% @users.each do |user| %>
+
       <p>
         <%= user.email %> -- 
         <b>
           <%= user.roles.pluck(:name).map { |tag| tag.capitalize }.to_sentence %>
-        </b>
+        </b><br>
+        <span>
+          <h4>Role Utilisateur</h4>
+          <p>
+            Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>
+          </p>
+        </span>
+        <h4>Dernière Activité</h4>
+        <% @activities.each do |a| %>
+          <p>
+            <% if a.owner&.email.present? %>
+              <%= l(a.created_at, format: :short) %><br>
+              <%= a.key %>
+              <%= link_to a.trackable.title, a.trackable if a.trackable_type == 'Post' %><br>
+              <%#= link_to a.trackable.email, profil_path if a.trackable_type == 'User' %>
+              par: <%= a.owner&.email %>
+            <% else %>
+              <%# VIDE %>
+            <% end %>
+          </p>
+        <% end %>
       </p>
       <span>
-        <p>
-          Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>
-        </p>
-      </span>
-      <span>
-          <%= user.username %>
-          peut voir l'index des utilisateurs ?:
-          <% if current_user.has_role? :admin %>
-            <%= content_tag(:span, value=("Oui"), class: "badge bg-success") %>
-          <% else %>
-            <%= content_tag(:span, value=("Non"), class: "badge bg-danger") %>
-          <% end %>
-          <%#= boolean_label(policy(User).index?) %>
+        <h4>Droit Utilisateur</h4>
+        <%= user.username %>
+        peut voir l'index des utilisateurs ?:
+        <% if current_user.has_role? :admin %>
+          <%= content_tag(:span, value=("Oui"), class: "badge bg-success") %>
+        <% else %>
+          <%= content_tag(:span, value=("Non"), class: "badge bg-danger") %>
+        <% end %>
+        <%#= boolean_label(policy(User).index?) %>
       </span>
       <span>
         <p>
@@ -39,30 +57,53 @@
         </p>
       </span>
         <hr width="500">
-    <% else %>
-      <%= user.email %>
-      <%= user.roles.pluck(:name) %>
-      <span>
-        <p>
-          Êtes vous Admin? <%= boolean_label(user.has_role? :admin) %><br>
-        </p>
-      </span>
-      <span>
-          <%= user.username %>
-          peut voir l'index des utilisateurs ?:
-          <%= boolean_label(policy(User).index?) %>
-      </span>
-      <span>
-        <p>
-          <%= user.username %>
-          peut modifier un utilisateur:
-          <%= boolean_label(policy(User).edit?) %>
-          <p>
-            <%= link_to "Editer le Role", edit_user_path(current_user) if policy(User) %><br>
-          </p>
-        </p>
-      </span>
+
     <% end %>
+  <% else %>
+
+    <%# Affichage d'un Utilisateur non Admin %>
+    <p>
+      Votre Adresse Email: 
+    <b>
+      <%= current_user.email %>
+    </b><br>
+      <h4>Role Utilisateur</h4>
+      Êtes vous Admin? 
+      <b>
+        <%= boolean_label(current_user.has_role? :admin) %><br>
+      </b>
+      <p>
+        Vous avez le Rôle: 
+        <b>
+          <%= current_user.roles.pluck(:name).map { |tag| tag.capitalize }.to_sentence %>
+        </b>
+      </p>
+      <% if current_user.has_role? :admin %>
+        <h4>Dernière Activité</h4>
+        <% @activities.each do |a| %>
+          <%= l(a.created_at, format: :short) %><br>
+          <%= a.key %>
+          <%= link_to a.trackable.title, a.trackable if a.trackable_type == 'Post' %><br>
+          <p>
+            <%#= link_to a.trackable.email, profil_path if a.trackable_type == 'User' %>
+            par: <%= a.owner&.email %>
+          </p>
+        <% end %>
+      <% end %>
+    </p>
+    <span>
+      <h4>Droit Utilisateur</h4>
+      <%= current_user.username %>
+      peut voir l'index des utilisateurs ?:
+      <%= boolean_label(policy(User).index?) %>
+    </span>
+    <span>
+      <p>
+        <%= current_user.username %>
+        peut modifier un utilisateur:
+        <%= boolean_label(policy(User).edit?) %>
+      </p>
+    </span>
   <% end %>
 <% end %>
 
@@ -102,7 +143,7 @@
         </p>
       
       <% end %>
-    <% end %>
+
 
     <p>
       <% if user.invitation_accepted?  %>
@@ -133,6 +174,6 @@
 
     <hr width="500">
     </p>
-  
+    <% end %>
   <% end %>
 <% end %>

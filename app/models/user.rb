@@ -10,7 +10,10 @@ class User < ApplicationRecord
 
   attr_accessor :login
 
-  has_many :posts, dependent: :destroy, through: :roles, source: :resource, source_type: :Post
+  include PublicActivity::Model
+  tracked only: [:create, :destroy], owner: :itself
+
+  has_many :posts, dependent: :destroy
 
   has_many :createur,
            -> { where(roles: { name: :createur }) },

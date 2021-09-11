@@ -60,6 +60,7 @@
                         <b>Avatar: </b> <span class="text-danger">"Pas d'avatar..."</span>
                       </p>
                     <% end %>
+                    <hr>
                     <span>
                       <p>
                         <%= current_user.username %>
@@ -73,6 +74,15 @@
                         peut voir l'index des utilisateurs ?:
                         <%= boolean_label(policy(User).index?) %>
                       </p>
+                    </span>
+                    <hr>
+                    <span>
+                      <% for post in @posts %>
+                        <% if post.activities.count == 0 %>
+                        <% else %>
+                          <b>Activités du compte: </b><span class="badge bg-dark"><%= post.activities.pluck(:id) %></span>
+                        <% end %>
+                      <% end %>
                     </span>
                   </div>
               </div>

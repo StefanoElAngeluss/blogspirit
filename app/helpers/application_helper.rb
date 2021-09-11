@@ -13,4 +13,5 @@ module ApplicationHelper
         content_tag(:span, value=("Non"), class: "badge bg-danger")
     end
   end
+
 end

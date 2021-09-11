@@ -91,8 +91,11 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    Post.public_activity_off
     respond_to do |format|
       if @post.update(post_params)
+        Post.public_activity_on
+        @post.create_activity "Titre mis à jour", parameters: { time_zone: Time.zone.now }
         if current_user.has_any_role? :admin, :nouvel_utilisateur
         else
           current_user.remove_role :createur, @post

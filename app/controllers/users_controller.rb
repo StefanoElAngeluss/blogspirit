@@ -2,8 +2,10 @@
 
 class UsersController < ApplicationController
   def index
+    @activities = PublicActivity::Activity.order(created_at: :desc)
     if current_user.has_role? :admin
-      @users = User.order(created_at: :asc)
+      @users = User.all
+      @posts = Post.all
       authorize @users
     else
       redirect_to root_path, alert: "Vous n'avez pas l'autorisation !"

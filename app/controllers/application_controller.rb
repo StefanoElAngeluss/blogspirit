@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Pagy::Backend
+  
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  
   rescue_from ActionController::InvalidAuthenticityToken, with: :redirect_and_prompt_for_sign_in
-
-  include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  include PublicActivity::StoreController
+  include Pagy::Backend
+  include Pundit
 
   def to_boolean(str)
 	  return true if str=="Oui"
