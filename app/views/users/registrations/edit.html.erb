@@ -10,27 +10,37 @@
 
   <div class="field">
     <%= f.label "Avatar Utilisateur:" %>
-    <%= f.file_field :avatar  %>
+    <%= f.file_field :avatar, accept: "image/png, image/gif, image/jpeg"  %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email", required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street_number %><br />
+    <%= f.text_field :street_number, autocomplete: "city", required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :street_name %><br />
+    <%= f.text_field :street_name, autocomplete: "city", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :city %><br />
-    <%= f.text_field :city, autocomplete: "city" %>
+    <%= f.text_field :city, autocomplete: "city", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :zipcode %><br />
-    <%= f.text_field :zipcode, autocomplete: "zipcode" %>
+    <%= f.text_field :zipcode, autocomplete: "zipcode", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :country %><br />
-    <%= f.text_field :country, autocomplete: "country" %>
+    <%= f.text_field :country, autocomplete: "country", required: true %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

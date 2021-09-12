@@ -100,7 +100,7 @@ fr:
       subdomain:
         title: "Sous-domaine"
       password:
-        title: "Mot de passe"
+        label: "Mot de passe"
       sign_up:
         title: "S'inscrire"
         submit: "S'inscrire"

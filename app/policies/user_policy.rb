@@ -8,7 +8,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.has_role? :admin
+    @user.has_any_role? :admin, :nouvel_utilisateur
   end
 
   def edit?

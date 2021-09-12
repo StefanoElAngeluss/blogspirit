@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   def index
     @activities = PublicActivity::Activity.order(created_at: :desc)
-    if current_user.has_role? :admin
+    if current_user.has_any_role? :admin, :nouvel_utilisateur
       @users = User.all
       @posts = Post.all
       authorize @users

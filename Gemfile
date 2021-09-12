@@ -38,6 +38,7 @@ gem 'pundit'
 gem 'rolify'
 gem 'friendly_id', '~> 5.4', '>= 5.4.2'
 gem 'public_activity'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

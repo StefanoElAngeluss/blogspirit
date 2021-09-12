@@ -4,7 +4,7 @@
 
       <div class="card">
         <% if user_signed_in?%>
-        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <img class="card-img-top" src="" alt="">
         <div class="card-body">
           <h1 align="center" class="text-uppercase">Mon Profil</h1>
           <p class="card-text">
@@ -12,7 +12,9 @@
             <% if current_user.provider.present? %>
               <div class="container">
                 <h3 class=text-success>Réseau Social:</h3>
-                  <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
+                  <% if current_user.has_any_role? :admin %>
+                    <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
+                  <% end %><br>
                   <% if current_user.avatar.attached? %>
                     <%#= image_tag current_user.avatar, size: "30x30" %>
                     <b>Avatar: </b><%= image_tag current_user.avatar, size: "120x120" %><br>
@@ -24,6 +26,7 @@
                   <b>Nom d'utilisateur: </b><%= current_user.username %><br>
                   <b>Role Utilisateur: </b><%= current_user.roles.pluck(:name).map { |tag| tag.capitalize }.to_sentence %><br>
                   <b>Adresse Email: </b><%= current_user.email %><br>
+                  <b>Adresse Complète: </b><%= current_user.street_number + current_user.street_name %><br>
                   <b>Provider: </b><%= current_user.provider %><br>
                   <b>UID: </b><%= current_user.uid %><br>
                   <b>Nombre d'articles: </b><%= current_user.posts_count %>
@@ -34,15 +37,18 @@
                   <b>Dernière connexion: </b><%= l(current_user.last_sign_in_at, format: :long) %>
             <% else %>
                 <div class="container">
-              <div class="row">
+                  <div class="row">
                   <div class="col-6 col-sm-6 col-xxl-6 col-xl-6 col-md-6 col-lg-6">
                     <h3 class=text-success>Manuel: </h3>
                       <b>Nom d'utilisateur: </b><%= current_user.username %><br>
                       <b>Role Utilisateur: </b><%= current_user.roles.pluck(:name).map { |tag| tag.capitalize }.to_sentence %>
-                      <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %><br>
+                      <% if current_user.has_any_role? :admin %>
+                        <%= link_to "Editer les Roles", edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %><br>
+                      <% end %><br>
                       <b>Adresse Email: </b><%= current_user.email %><br>
-                      <b>Ville: </b><%= current_user.city %><br>
+                      <b>Adresse Complète: </b><%= current_user.street_number %>, <%= current_user.street_name %><br>
                       <b>Code Postale: </b><%= current_user.zipcode %><br>
+                      <b>Ville: </b><%= current_user.city %><br>
                       <b>Pays: </b><%= current_user.country %><br>
                       <hr>
                       <b>Nombre de connexion: </b><%= current_user.sign_in_count %><br>
@@ -85,6 +91,7 @@
                       <% end %>
                     </span>
                   </div>
+                </div>
               </div>
             <% end %>
           </p>
